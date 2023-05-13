@@ -1,0 +1,58 @@
+﻿@model IPagedList<CRUD_Entity1.Models.category>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@using PagedList;
+@using PagedList.Mvc;
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().productId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().productName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().categoryId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().categoryName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.productId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.productName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.categoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.categoryName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.productId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.productId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.productId })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+@Html.PagedListPager(Model, i => Url.Action("Index", "Product", new {i, search = Request.QueryString["search"] }))
